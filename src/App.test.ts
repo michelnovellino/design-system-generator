@@ -51,5 +51,13 @@ describe('App (smoke)', () => {
     expect(html.match(/cvd-swatch/g)?.length).toBe(5 * 11)
     // La fila con filtro aplica url(#cvd-...) inline.
     expect(html).toMatch(/filter:\s*url\(#cvd-deuteranopia\)/)
+
+    // Panel de exportación: 3 targets seleccionables + botón de descarga,
+    // sin errores de validación (el árbol DTCG por defecto es consistente).
+    expect(html).toContain('DTCG tokens.json')
+    expect(html).toMatch(/type="checkbox"/)
+    expect(html).toContain('Descargar .zip')
+    // No debe mostrarse el bloque de errores de validación.
+    expect(html).not.toContain('Problemas de validación')
   })
 })

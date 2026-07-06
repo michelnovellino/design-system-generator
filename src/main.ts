@@ -14,6 +14,15 @@ if (typeof window !== 'undefined') {
   (window as any).__DESIGN_SYSTEM__ = {
     getStore: () => useTokensStore(),
     getTokens: () => useTokensStore().tokenTree,
+    getRawData: () => {
+      const store = useTokensStore()
+      return {
+        brandHex: store.brandHex,
+        contrastMode: store.contrastMode,
+        typeConfig: store.typeConfig,
+        spacingBasePx: store.spacingBasePx
+      }
+    },
     setBrand: (hex: string) => useTokensStore().setBrand(hex),
     setContrastMode: (mode: any) => useTokensStore().setContrastMode(mode),
   }

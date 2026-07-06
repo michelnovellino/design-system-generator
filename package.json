@@ -1,0 +1,41 @@
+{
+  "name": "design-system-generator",
+  "version": "0.1.0",
+  "description": "A 100% client-side design system generator for color (OKLCH), contrast (WCAG 2 / APCA / Bridge PCA), fluid typography, and spacing. Exports DTCG-compliant design tokens.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "Michel Novellino <michelnovellino.dev@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michelnovellino/design-system-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/michelnovellino/design-system-generator/issues"
+  },
+  "homepage": "https://michelnovellino.github.io/design-system-generator/",
+  "packageManager": "pnpm@11.6.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "apca-w3": "^0.1.9",
+    "bridge-pca": "^0.1.6",
+    "culori": "^4.0.2",
+    "jszip": "^3.10.1",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.39"
+  },
+  "devDependencies": {
+    "@types/culori": "^2.1.1",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "typescript": "^6.0.3",
+    "vite": "^8.1.3",
+    "vitest": "^4.1.9",
+    "vue-tsc": "^3.3.6"
+  }
+}

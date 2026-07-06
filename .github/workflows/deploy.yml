@@ -1,0 +1,77 @@
+# Despliegue a GitHub Pages (project site: <usuario>.github.io/<repo>/).
+#
+# Nota (ADR-005): el objetivo de producción es Cloudflare Pages. GitHub Pages
+# se usa aquí como preview/staging mientras no hay dominio propio. El `base`
+# se inyecta como /<repo>/ vía BASE_PATH; en Cloudflare (raíz) queda en '/'.
+#
+# Requiere: Settings → Pages → "Build and deployment" → Source = GitHub Actions.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Permisos mínimos que exige el despliegue de Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un despliegue a la vez; no cancela el que esté en curso.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Lee la versión de pnpm desde el campo packageManager de package.json.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Verificación en CI: tipos + tests + build, todo determinista.
+      - name: Type-check and test
+        run: |
+          pnpm type-check
+          pnpm test
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      # base = /<repo> para que los assets resuelvan bajo el subpath de Pages
+      # (vite.config normaliza la barra final).
+      - name: Build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: pnpm build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

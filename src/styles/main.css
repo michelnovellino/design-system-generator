@@ -1,0 +1,70 @@
+/* ============================================================
+   Estilos base del andamiaje (shell).
+   Estos NO son los tokens que genera la app — son solo la piel
+   de la propia herramienta. Se reemplazan/expanden al construir
+   la UI real. Paleta pensada como "laboratorio de color":
+   superficie profunda + acento OKLCH generable por la propia app.
+   ============================================================ */
+
+:root {
+  /* Superficies */
+  --surface-0: oklch(0.17 0.02 265);
+  --surface-1: oklch(0.21 0.025 265);
+  --surface-2: oklch(0.26 0.03 265);
+  --border: oklch(0.32 0.03 265);
+
+  /* Texto */
+  --text-strong: oklch(0.97 0.01 265);
+  --text: oklch(0.82 0.02 265);
+  --text-muted: oklch(0.62 0.02 265);
+
+  /* Acento (un color que la propia herramienta podría emitir) */
+  --accent: oklch(0.72 0.15 195);
+  --accent-strong: oklch(0.8 0.16 195);
+
+  /* Tipografía */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code',
+    'Cascadia Code', Menlo, Consolas, monospace;
+
+  /* Espaciado base */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-0);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--accent-strong);
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

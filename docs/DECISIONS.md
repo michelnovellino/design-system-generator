@@ -224,3 +224,54 @@ El componente inyecta un `<filter>` por tipo y aplica `filter: url(#cvd-…)`
 a la escala de marca. Los valores del `feColorMatrix` salen SIEMPRE de
 `cvdMatrix()` del motor (no se duplican en la plantilla), de modo que los
 tests del motor cubren también lo que se renderiza.
+
+---
+
+## ADR-009 — Tokens DTCG: forma string y taxonomía de tres niveles
+
+**Estado:** Aceptada
+
+**Contexto:** El PLAN §5 fija tokens en formato DTCG (W3C) con tres niveles
+(primitivos → semánticos → componente) y `tokens.json` como fuente de verdad.
+DTCG tiene variantes: la última spec usa valores estructurados
+(`color: {colorSpace, components}`, `dimension: {value, unit}`); versiones
+previas y la mayoría de herramientas usan strings (`"#3b82f6"`, `"1rem"`).
+
+**Decisión 1 — Valores en forma string:**
+Emitimos `$value` como string (HEX para color, `"Nrem"` para dimensión).
+Motivo: es lo que consumen hoy Style Dictionary, Tokens Studio, Figma, etc.
+El objetivo del proyecto es "plug and play", así que prima la compatibilidad
+de herramientas sobre la pureza de la última spec. Si el ecosistema migra a
+la forma estructurada, se cambia en la capa `buildTokens`/transforms sin
+tocar los motores.
+
+**Decisión 2 — Saneado de nombres:**
+DTCG prohíbe `.`, `{`, `}` en los nombres. El espaciado de Tailwind usa
+claves como `0.5`; se sanean a `0-5` en todo el árbol (y por tanto en CSS
+vars y Tailwind), de forma consistente entre targets. Verificado en tests.
+
+**Decisión 3 — Alias como referencias vivas en CSS, resueltos en Tailwind:**
+En `css-vars`, un alias `{color.brand.500}` se emite como
+`var(--color-brand-500)` para preservar la cascada semántica. En `tailwind`,
+los alias se resuelven a valores concretos (Tailwind espera valores). En
+`tokens.json` los alias quedan intactos como `{refs}` (fuente de verdad).
+`validate()` detecta alias colgantes y ciclos antes de exportar.
+
+---
+
+## ADR-010 — Exportación síncrona; Web Worker diferido
+
+**Estado:** Aceptada
+
+**Contexto:** El PLAN §7 sugiere empaquetar el zip en un Web Worker para no
+congelar la UI.
+
+**Decisión:** El pipeline (transforms + JSZip) corre de forma SÍNCRONA en el
+hilo principal. Para el volumen real (unos cientos de tokens, <20 KB de
+texto) tarda <10 ms — imperceptible. Un Web Worker añadiría complejidad de
+bundling (worker + JSZip) sin beneficio medible.
+
+**Consecuencia / cuándo revisar:** Si en el futuro se exportan muchos más
+targets o assets binarios pesados (p. ej. imágenes, fuentes embebidas) y el
+empaquetado supera ~50 ms, mover `buildExport` a un worker. La firma
+async de `buildExport`/`packageZip` ya lo permite sin cambiar los llamadores.

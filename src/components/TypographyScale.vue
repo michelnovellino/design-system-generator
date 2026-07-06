@@ -3,14 +3,16 @@
 // Controles de escala → previsualización en vivo de cada peldaño con su
 // clamp() real aplicado, más la escala de espaciado en rem.
 // La matemática vive en engines/typography.
-import { computed, reactive, ref } from 'vue'
-import {
-  DEFAULT_SPACING_MULTIPLIERS,
-  generateSpacingScale,
-  generateTypeScale,
-  type ScaleConfig,
-} from '@/engines/typography'
+import { computed, ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useTokensStore } from '@/stores/tokens'
 import { t } from '@/i18n'
+
+// La config tipográfica vive en el store (única fuente de verdad): así la
+// escala que se ve aquí es exactamente la que se exporta.
+const store = useTokensStore()
+const { typeScale, spacingScale: spacing } = storeToRefs(store)
+const cfg = store.typeConfig
 
 const RATIOS = computed(() => [
   { name: t('ratio_minor_second'), value: 1.067 },
@@ -20,22 +22,6 @@ const RATIOS = computed(() => [
   { name: t('ratio_perfect_fourth'), value: 1.333 },
   { name: t('ratio_golden'), value: 1.618 },
 ])
-
-const cfg = reactive<ScaleConfig>({
-  minBasePx: 16,
-  maxBasePx: 18,
-  minRatio: 1.2,
-  maxRatio: 1.25,
-  positiveSteps: 5,
-  negativeSteps: 2,
-  minViewportPx: 360,
-  maxViewportPx: 1280,
-})
-
-const typeScale = computed(() => generateTypeScale(cfg))
-const spacing = computed(() =>
-  generateSpacingScale({ basePx: 4, multipliers: [...DEFAULT_SPACING_MULTIPLIERS] }),
-)
 
 const copied = ref<string | null>(null)
 async function copy(text: string) {

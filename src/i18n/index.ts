@@ -86,7 +86,19 @@ export const translations = {
     cvd_protanopia_desc: "No red cones (~1% of men)",
     cvd_deuteranopia_desc: "No green cones (~1% of men)",
     cvd_tritanopia_desc: "No blue cones (rare)",
-    cvd_achromatopsia_desc: "No color at all (very rare)"
+    cvd_achromatopsia_desc: "No color at all (very rare)",
+
+    // Export
+    export_heading: "Export",
+    export_intro: "Pick your targets and download a ready-to-use token bundle. Everything is generated in your browser.",
+    export_target_css: "CSS variables",
+    export_target_tailwind: "Tailwind config",
+    export_target_dtcg: "DTCG tokens.json",
+    export_download: "Download .zip",
+    export_building: "Building…",
+    export_none: "Pick at least one target",
+    export_errors: "Token validation issues:",
+    export_done: "Downloaded ✓"
   },
   es: {
     eyebrow: "100% cliente · sin servidores · determinista",
@@ -160,7 +172,19 @@ export const translations = {
     cvd_protanopia_desc: "Sin conos rojos (~1% de hombres)",
     cvd_deuteranopia_desc: "Sin conos verdes (~1% de hombres)",
     cvd_tritanopia_desc: "Sin conos azules (raro)",
-    cvd_achromatopsia_desc: "Sin color alguno (muy raro)"
+    cvd_achromatopsia_desc: "Sin color alguno (muy raro)",
+
+    // Export
+    export_heading: "Exportar",
+    export_intro: "Elige tus targets y descarga un paquete de tokens listo para usar. Todo se genera en tu navegador.",
+    export_target_css: "Variables CSS",
+    export_target_tailwind: "Config de Tailwind",
+    export_target_dtcg: "DTCG tokens.json",
+    export_download: "Descargar .zip",
+    export_building: "Generando…",
+    export_none: "Elige al menos un target",
+    export_errors: "Problemas de validación de tokens:",
+    export_done: "Descargado ✓"
   }
 } as const
 

@@ -40,7 +40,7 @@ Si ejecutas la aplicación en un entorno de navegador con soporte para evaluar J
 
 ## 2. Bloque de Datos JSON Estático en el DOM
 
-Para agentes o scrapers simples que solo leen el HTML estático de la página (sin ejecutar JavaScript complejo), la aplicación inyecta y actualiza dinámicamente un script tag con los tokens estructurados en JSON.
+Para agentes o scrapers simples que solo leen el HTML estático de la página (sin ejecutar JavaScript complejo), la aplicación inyecta y actualiza dinámicamente un tag `<pre>` oculto con los tokens estructurados en JSON.
 
 ### Cómo extraer la información:
 Solo necesitas leer el contenido de texto del elemento con el ID `#design-tokens-data`:

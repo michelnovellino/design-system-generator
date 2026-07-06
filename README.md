@@ -34,6 +34,14 @@ pnpm test          # Run tests (Vitest)
 
 Key decisions are documented in [`docs/DECISIONS.md`](docs/DECISIONS.md).
 
+## Agentic & API Friendly
+
+This project is optimized for AI agents and developer tools. See [`docs/AGENT_FRIENDLY.md`](docs/AGENT_FRIENDLY.md) for specifications on:
+- **Global JS Bridge**: Run commands directly in the browser console.
+- **Static DOM Data**: Read structural design token JSON direct from the DOM.
+- **Local Dev API**: Hit the local `/api/tokens` endpoint to generate assets.
+- **Agent Spec Files**: `/llms.txt` and `/ai.txt` are served at the root for automated discoverability.
+
 ## License
 
 [Apache License 2.0](LICENSE). See also [`NOTICE`](NOTICE).

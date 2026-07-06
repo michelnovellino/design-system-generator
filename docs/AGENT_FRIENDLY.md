@@ -62,3 +62,33 @@ Si controlas el navegador simulando interacciones humanas (haciendo clics y escr
 | Checkbox Target Tailwind | `input[data-agent="export-target-tailwind"]` | Activa/Desactiva exportación de `tailwind.config.js`. |
 | Checkbox Target DTCG | `input[data-agent="export-target-dtcg-json"]` | Activa/Desactiva exportación del JSON de W3C. |
 | Botón de Descarga | `button[data-agent="download-zip-button"]` | Compila y descarga el archivo `.zip` con los assets. |
+
+---
+
+## 4. API de Desarrollo Local (`/api/tokens`)
+
+Cuando ejecutas el servidor de desarrollo local de Vite (`pnpm dev`), se expone un endpoint de API simulado directamente en el puerto del servidor.
+
+### Endpoint:
+`GET /api/tokens`
+
+### Parámetros Disponibles:
+- **`brand`** (string): Color hexadecimal base (ej. `#3b82f6` o `3b82f6`).
+- **`contrastMode`** (string): `'wcag2' | 'apca' | 'bridge'`.
+- **`minBasePx`** y **`maxBasePx`** (integer): Tamaños de fuente base mínimo y máximo.
+- **`minRatio`** y **`maxRatio`** (float): Ratios de escala tipográfica para pantallas pequeñas y grandes.
+- **`positiveSteps`** y **`negativeSteps`** (integer): Peldaños superiores e inferiores de tipografía.
+- **`minViewportPx`** y **`maxViewportPx`** (integer): Rango de ancho de pantalla para la tipografía fluida.
+- **`spacingBasePx`** (integer): Multiplicador base en píxeles para el espaciado.
+
+### Retorno:
+Un objeto JSON que contiene:
+- `success`: Booleano de éxito.
+- `config`: Los parámetros de configuración interpretados.
+- `tokens`:
+  - `dtcg`: Árbol de tokens en formato estándar DTCG de la W3C.
+  - `css`: El string formateado con las variables CSS listas para usar.
+  - `tailwind`: La extensión de configuración de Tailwind.
+- `validationErrors`: Mensajes si se violan reglas de accesibilidad o diseño.
+
+*Para ver la especificación completa orientada a agentes en un formato estándar, puedes consultar los archivos `/llms.txt` o `/ai.txt` en el directorio de la aplicación.*

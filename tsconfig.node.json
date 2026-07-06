@@ -7,7 +7,16 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "emitDeclarationOnly": true,
-    "outDir": "./dist-tsconfig-node"
+    "outDir": "./dist-tsconfig-node",
+    "types": ["node"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "vite.config.ts",
+    "src/engines/**/*",
+    "src/export/**/*",
+    "src/types/**/*"
+  ]
 }

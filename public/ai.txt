@@ -1,0 +1,47 @@
+# Design System Generator API & Agent Guidance
+
+This document describes the API and structure of the Design System Generator to guide LLMs, browser agents, and developer tools.
+
+## Development API
+
+When running locally, the Vite dev server exposes a custom API endpoint.
+
+### GET `/api/tokens`
+
+Generates design tokens (color scales, typography scale, spacing scale) dynamically based on parameter inputs.
+
+#### Query Parameters
+
+All parameters are optional and have default fallback values.
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `brand` | string | `#3b82f6` | Hex code (e.g. `#3b82f6` or `3b82f6`) of the brand color. |
+| `contrastMode` | string | `bridge` | Contrast algorithm mode: `wcag2`, `apca`, or `bridge`. |
+| `minBasePx` | integer | `16` | Minimum base font size in pixels. |
+| `maxBasePx` | integer | `18` | Maximum base font size in pixels. |
+| `minRatio` | float | `1.2` | Minimum type scale ratio (for small viewports). |
+| `maxRatio` | float | `1.25` | Maximum type scale ratio (for large viewports). |
+| `positiveSteps` | integer | `5` | Number of positive steps in the type scale. |
+| `negativeSteps` | integer | `2` | Number of negative steps in the type scale. |
+| `minViewportPx`| integer | `360` | Minimum viewport width in pixels (start of fluid scale). |
+| `maxViewportPx`| integer | `1280` | Maximum viewport width in pixels (end of fluid scale). |
+| `spacingBasePx`| integer | `4` | Spacing scale base multiplier in pixels. |
+
+#### JSON Response Structure
+
+Returns a JSON object with:
+- `success` (boolean): `true` if generation succeeded.
+- `config` (object): Resolved configuration options.
+- `tokens` (object):
+  - `dtcg` (object): DTCG (Design Tokens Community Group) compliant design token JSON tree.
+  - `css` (string): Preformatted CSS stylesheet declaring CSS variables.
+  - `tailwind` (string): Preformatted JS module exporting the tailwind config extension.
+- `validationErrors` (array): Validation errors if tokens violate constraints.
+- `error` (string): Included only if `success` is `false`, containing the error message.
+
+#### Example Call
+
+```bash
+curl "http://localhost:5173/api/tokens?brand=%233b82f6&contrastMode=wcag2"
+```

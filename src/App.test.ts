@@ -42,5 +42,14 @@ describe('App (smoke)', () => {
     expect(html).toMatch(/font-size:\s*clamp\(/)
     // Escala de espaciado (16 multiplicadores por defecto).
     expect(html.match(/space-row/g)?.length).toBe(16)
+
+    // Panel CVD: los 4 filtros SVG (uno por deficiencia) declarados en
+    // linearRGB, y 5 filas (normal + 4) × 11 swatches de la escala.
+    expect(html).toContain('id="cvd-protanopia"')
+    expect(html).toContain('id="cvd-achromatopsia"')
+    expect(html.match(/color-interpolation-filters="linearRGB"/g)?.length).toBe(4)
+    expect(html.match(/cvd-swatch/g)?.length).toBe(5 * 11)
+    // La fila con filtro aplica url(#cvd-...) inline.
+    expect(html).toMatch(/filter:\s*url\(#cvd-deuteranopia\)/)
   })
 })

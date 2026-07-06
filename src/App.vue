@@ -4,12 +4,13 @@ import { t, locale } from '@/i18n'
 import ColorGenerator from '@/components/ColorGenerator.vue'
 import ContrastChecker from '@/components/ContrastChecker.vue'
 import TypographyScale from '@/components/TypographyScale.vue'
+import CvdSimulation from '@/components/CvdSimulation.vue'
 
 const engines = computed(() => [
   { name: 'Color (OKLCH)', status: t('engine_status_active'), note: t('engine_color_note') },
   { name: 'Contraste', status: t('engine_status_active'), note: t('engine_contrast_note') },
   { name: 'Tipografía', status: t('engine_status_active'), note: t('engine_typo_note') },
-  { name: 'Daltonismo', status: t('engine_status_pending'), note: t('engine_cvd_note') },
+  { name: 'Daltonismo', status: t('engine_status_active'), note: t('engine_cvd_note') },
   { name: 'Exportación', status: t('engine_status_pending'), note: t('engine_export_note') },
 ])
 
@@ -36,6 +37,8 @@ function toggleLocale() {
     <ContrastChecker />
 
     <TypographyScale />
+
+    <CvdSimulation />
 
     <section class="engines" :aria-label="locale === 'es' ? 'Estado de los motores' : 'Engine status'">
       <div v-for="e in engines" :key="e.name" class="engine-row">

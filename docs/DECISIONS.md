@@ -193,3 +193,34 @@ como tokens de `rem` fijos (multiplicadores estilo Tailwind sobre una unidad
 base de 4px). Motivo: el espaciado fluido es impredecible para maquetar y
 rara vez deseado; rem fijo ya respeta el zoom. Queda como posible extensión
 futura si se pide explícitamente.
+
+---
+
+## ADR-008 — Motor CVD: matrices de Machado 2009 en espacio linearRGB
+
+**Estado:** Aceptada
+
+**Contexto:** El PLAN §6.3 pide simular daltonismo con matrices (Machado o
+Brettel-Viénot) vía filtros SVG `feColorMatrix` en GPU, no Canvas.
+
+**Decisión 1 — Machado et al. 2009, severidad 1.0:**
+Se usan las matrices 3×3 de Machado, Oliveira & Fernandes (2009) a severidad
+1.0 (dicromacia completa) para proto/deutero/tritanopía, por ser las más
+citadas y con validación perceptual publicada. Acromatopsia se resuelve con
+luma Rec. 709 (0.2126/0.7152/0.0722) replicada en los tres canales.
+Invariante verificada en tests: cada fila suma ≈1 (el blanco sigue blanco).
+
+**Decisión 2 — Aplicar en `linearRGB`, no sRGB:**
+Los filtros declaran `color-interpolation-filters="linearRGB"` (que además
+es el valor por defecto de SVG). Motivo: las matrices de Machado están
+DERIVADAS en RGB lineal, y los coeficientes de luma Rec. 709 también se
+definen sobre RGB lineal. Aplicarlas en sRGB (como hacen algunas librerías
+web con matrices distintas, p. ej. Wickline) daría un resultado que no
+corresponde a la derivación de Machado. Mantenerlo explícito evita que un
+cambio futuro del default rompa la fidelidad.
+
+**Decisión 3 — Filtros GPU, matriz como fuente única:**
+El componente inyecta un `<filter>` por tipo y aplica `filter: url(#cvd-…)`
+a la escala de marca. Los valores del `feColorMatrix` salen SIEMPRE de
+`cvdMatrix()` del motor (no se duplican en la plantilla), de modo que los
+tests del motor cubren también lo que se renderiza.

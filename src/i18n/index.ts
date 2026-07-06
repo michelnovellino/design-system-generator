@@ -73,7 +73,20 @@ export const translations = {
     copy_clamp: "Copy clamp() for {step}",
     sample_text_typo: "Design system",
     copied_exclamation: "copied!",
-    copy_spacing: "Copy {rem}rem"
+    copy_spacing: "Copy {rem}rem",
+
+    // CVD simulation
+    cvd_heading: "Color vision",
+    cvd_intro: "Your brand scale as seen with each color vision deficiency (Machado 2009).",
+    cvd_normal: "Normal vision",
+    cvd_protanopia: "Protanopia",
+    cvd_deuteranopia: "Deuteranopia",
+    cvd_tritanopia: "Tritanopia",
+    cvd_achromatopsia: "Achromatopsia",
+    cvd_protanopia_desc: "No red cones (~1% of men)",
+    cvd_deuteranopia_desc: "No green cones (~1% of men)",
+    cvd_tritanopia_desc: "No blue cones (rare)",
+    cvd_achromatopsia_desc: "No color at all (very rare)"
   },
   es: {
     eyebrow: "100% cliente · sin servidores · determinista",
@@ -134,7 +147,20 @@ export const translations = {
     copy_clamp: "Copiar clamp() de {step}",
     sample_text_typo: "Sistema de diseño",
     copied_exclamation: "¡copiado!",
-    copy_spacing: "Copiar {rem}rem"
+    copy_spacing: "Copiar {rem}rem",
+
+    // CVD simulation
+    cvd_heading: "Visión del color",
+    cvd_intro: "Tu escala de marca vista con cada deficiencia de visión del color (Machado 2009).",
+    cvd_normal: "Visión normal",
+    cvd_protanopia: "Protanopía",
+    cvd_deuteranopia: "Deuteranopía",
+    cvd_tritanopia: "Tritanopía",
+    cvd_achromatopsia: "Acromatopsia",
+    cvd_protanopia_desc: "Sin conos rojos (~1% de hombres)",
+    cvd_deuteranopia_desc: "Sin conos verdes (~1% de hombres)",
+    cvd_tritanopia_desc: "Sin conos azules (raro)",
+    cvd_achromatopsia_desc: "Sin color alguno (muy raro)"
   }
 } as const
 

@@ -17,14 +17,7 @@ export const translations = {
   en: {
     eyebrow: "100% client-side · serverless · deterministic",
     lede: "Input a brand color and get a perceptual OKLCH scale, WCAG 2, Bridge PCA, and APCA validated contrast, fluid typography, and export-ready DTCG tokens. All calculations occur in your browser.",
-    engine_status_active: "active",
-    engine_status_pending: "pending",
-    engine_color_note: "50→950 tonal scale, harmonies, gamut clipping",
-    engine_contrast_note: "WCAG 2 · Bridge PCA (default) · APCA · auto-fix",
-    engine_typo_note: "Modular scale + fluid clamp() in rem",
-    engine_cvd_note: "CVD matrices via SVG filters (GPU)",
-    engine_export_note: "DTCG + custom transforms + JSZip (Web Worker)",
-    
+
     // Color Generator
     color_base: "brand color",
     hex: "hex",
@@ -103,14 +96,7 @@ export const translations = {
   es: {
     eyebrow: "100% cliente · sin servidores · determinista",
     lede: "Introduce un color de marca y obtén una escala perceptual en OKLCH, contraste validado con WCAG 2, Bridge PCA y APCA, tipografía fluida y tokens DTCG listos para exportar. Todo el cálculo ocurre en tu navegador.",
-    engine_status_active: "activo",
-    engine_status_pending: "pendiente",
-    engine_color_note: "Escala tonal 50→950, armonías, gamut clipping",
-    engine_contrast_note: "WCAG 2 · Bridge PCA (default) · APCA · auto-fix",
-    engine_typo_note: "Escala modular + clamp() fluido en rem",
-    engine_cvd_note: "Matrices CVD vía filtros SVG (GPU)",
-    engine_export_note: "DTCG + transforms propias + JSZip (Web Worker)",
-    
+
     // Color Generator
     color_base: "color base",
     hex: "hex",

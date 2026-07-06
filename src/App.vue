@@ -5,6 +5,9 @@ import ContrastChecker from '@/components/ContrastChecker.vue'
 import TypographyScale from '@/components/TypographyScale.vue'
 import CvdSimulation from '@/components/CvdSimulation.vue'
 import ExportPanel from '@/components/ExportPanel.vue'
+import { useTokensStore } from '@/stores/tokens'
+
+const store = useTokensStore()
 
 function toggleLocale() {
   locale.value = locale.value === 'en' ? 'es' : 'en'
@@ -34,6 +37,12 @@ function toggleLocale() {
 
     <ExportPanel />
 
+    <!-- Script tag for agent scraping and JSON extraction -->
+    <script
+      id="design-tokens-data"
+      type="application/json"
+      v-text="JSON.stringify(store.tokenTree, null, 2)"
+    ></script>
     <footer class="foot">
       <span class="mono">v0.1.0 · Apache-2.0</span>
       <span class="foot-sep">·</span>

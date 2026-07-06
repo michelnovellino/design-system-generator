@@ -65,7 +65,7 @@ async function download() {
 
     <div class="targets">
       <label v-for="d in targetDefs" :key="d.id" class="target">
-        <input v-model="selected[d.id]" type="checkbox" class="check" />
+        <input v-model="selected[d.id]" type="checkbox" class="check" :data-agent="'export-target-' + d.id" />
         <span class="mono">{{ t(d.labelKey) }}</span>
       </label>
     </div>
@@ -82,6 +82,7 @@ async function download() {
         class="download mono"
         :disabled="chosen.length === 0 || building"
         @click="download"
+        data-agent="download-zip-button"
       >
         {{ building ? t('export_building') : justDone ? t('export_done') : t('export_download') }}
       </button>

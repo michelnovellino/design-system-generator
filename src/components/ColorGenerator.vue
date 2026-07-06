@@ -76,6 +76,7 @@ async function copy(hex: string) {
           :value="brandHex"
           :aria-label="t('selector_color_base')"
           @input="onPick"
+          data-agent="brand-color-picker"
         />
       </label>
       <label class="hex-label">
@@ -89,6 +90,7 @@ async function copy(hex: string) {
           :aria-label="t('color_base_hex')"
           @change="applyDraft"
           @keydown.enter="applyDraft"
+          data-agent="brand-color-input"
         />
       </label>
       <p class="hue mono">H {{ scale.baseHue.toFixed(1) }}°</p>

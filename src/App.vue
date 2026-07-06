@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { t, locale } from '@/i18n'
 import ColorGenerator from '@/components/ColorGenerator.vue'
 import ContrastChecker from '@/components/ContrastChecker.vue'
@@ -9,14 +8,6 @@ import ExportPanel from '@/components/ExportPanel.vue'
 import { useTokensStore } from '@/stores/tokens'
 
 const store = useTokensStore()
-
-const engines = computed(() => [
-  { name: 'Color (OKLCH)', status: t('engine_status_active'), note: t('engine_color_note') },
-  { name: 'Contraste', status: t('engine_status_active'), note: t('engine_contrast_note') },
-  { name: 'Tipografía', status: t('engine_status_active'), note: t('engine_typo_note') },
-  { name: 'Daltonismo', status: t('engine_status_active'), note: t('engine_cvd_note') },
-  { name: 'Exportación', status: t('engine_status_active'), note: t('engine_export_note') },
-])
 
 function toggleLocale() {
   locale.value = locale.value === 'en' ? 'es' : 'en'
@@ -46,26 +37,25 @@ function toggleLocale() {
 
     <ExportPanel />
 
-    <section class="engines" :aria-label="locale === 'es' ? 'Estado de los motores' : 'Engine status'">
-      <div v-for="e in engines" :key="e.name" class="engine-row">
-        <span class="engine-name mono">{{ e.name }}</span>
-        <span class="engine-note">{{ e.note }}</span>
-        <span class="engine-status mono">{{ e.status }}</span>
-      </div>
-    </section>
-
     <!-- Script tag for agent scraping and JSON extraction -->
     <script
       id="design-tokens-data"
       type="application/json"
       v-text="JSON.stringify(store.tokenTree, null, 2)"
     ></script>
-
     <footer class="foot">
       <span class="mono">v0.1.0 · Apache-2.0</span>
       <span class="foot-sep">·</span>
       <a href="https://git.apcacontrast.com/documentation/WhyAPCA" target="_blank" rel="noopener">
         Why APCA
+      </a>
+      <span class="foot-sep">·</span>
+      <a
+        href="https://github.com/michelnovellino/design-system-generator"
+        target="_blank"
+        rel="noopener"
+      >
+        GitHub
       </a>
       <span class="foot-sep">·</span>
       <button class="lang-btn mono" @click="toggleLocale">
@@ -118,34 +108,6 @@ function toggleLocale() {
   margin: 0;
 }
 
-.engines {
-  border-top: 1px solid var(--border);
-}
-
-.engine-row {
-  display: grid;
-  grid-template-columns: 12rem 1fr auto;
-  gap: var(--space-2);
-  align-items: baseline;
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.engine-name {
-  font-size: 0.9rem;
-  color: var(--text-strong);
-}
-.engine-note {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-.engine-status {
-  font-size: 0.72rem;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
 .foot {
   margin-top: auto;
   font-size: 0.8rem;
@@ -172,15 +134,5 @@ function toggleLocale() {
 .lang-btn:hover {
   color: var(--text-strong);
   border-color: var(--text-muted);
-}
-
-@media (max-width: 560px) {
-  .engine-row {
-    grid-template-columns: 1fr auto;
-  }
-  .engine-note {
-    grid-column: 1 / -1;
-    order: 3;
-  }
 }
 </style>

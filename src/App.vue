@@ -6,6 +6,9 @@ import ContrastChecker from '@/components/ContrastChecker.vue'
 import TypographyScale from '@/components/TypographyScale.vue'
 import CvdSimulation from '@/components/CvdSimulation.vue'
 import ExportPanel from '@/components/ExportPanel.vue'
+import { useTokensStore } from '@/stores/tokens'
+
+const store = useTokensStore()
 
 const engines = computed(() => [
   { name: 'Color (OKLCH)', status: t('engine_status_active'), note: t('engine_color_note') },
@@ -50,6 +53,13 @@ function toggleLocale() {
         <span class="engine-status mono">{{ e.status }}</span>
       </div>
     </section>
+
+    <!-- Script tag for agent scraping and JSON extraction -->
+    <script
+      id="design-tokens-data"
+      type="application/json"
+      v-text="JSON.stringify(store.tokenTree, null, 2)"
+    ></script>
 
     <footer class="foot">
       <span class="mono">v0.1.0 · Apache-2.0</span>

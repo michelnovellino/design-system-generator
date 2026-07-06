@@ -37,12 +37,12 @@ function toggleLocale() {
 
     <ExportPanel />
 
-    <!-- Pre tag for agent scraping and JSON extraction -->
-    <pre
+    <!-- Script tag for agent scraping and JSON extraction -->
+    <script
       id="design-tokens-data"
-      style="display: none;"
+      type="application/json"
       v-text="JSON.stringify(store.tokenTree, null, 2)"
-    ></pre>
+    ></script>
     <footer class="foot">
       <span class="mono">v0.1.0 · Apache-2.0</span>
       <span class="foot-sep">·</span>
